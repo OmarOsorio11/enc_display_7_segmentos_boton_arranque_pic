@@ -1,0 +1,30 @@
+#include <main.h>
+#use fast_io(D) 
+#use fast_io(C) 
+
+byte const display7seg[10] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+
+void main()
+{  
+   byte unidad=0, decena=0;
+   set_tris_D(0b00000000);
+   set_tris_C(0b00000000);
+   output_D(0);
+   
+   
+   while(TRUE)
+   {
+      for (decena=0; decena<10; decena++){
+         for(unidad=0; unidad<10;unidad++){
+            output_C(0x01);
+            output_D(display7seg[unidad]);
+            delay_ms(50);
+            if (decena==0) output_E(0x03);     //Si decenas=0, cat_D=apagado
+            else output_E(0x02);           //Si decenas>0, cat_D=encendido
+            output_D(display7seg[decena]);      //Digito decenas
+            delay_ms(50);    
+         }
+      }
+   }
+}
+

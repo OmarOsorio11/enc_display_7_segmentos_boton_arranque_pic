@@ -1,0 +1,169 @@
+CCS PCM C Compiler, Version 5.015, 5967               25-mar.-21 19:37
+
+               Filename:   F:\Universidad\PIC CSS COMPILER AND PROTEUS\Programacion Y control de perifericos\Proyecto numero  (8)\PIC CSS Compiler\main.lst
+
+               ROM used:   107 words (3%)
+                           Largest free fragment is 2048
+               RAM used:   5 (1%) at main() level
+                           28 (7%) worst case
+               Stack used: 1 locations
+               Stack size: 16
+
+*
+0000:  MOVLP  00
+0001:  GOTO   01A
+0002:  NOP
+.................... #include <16F1827.h> 
+.................... //////////// Standard Header file for the PIC16F1827 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F1827 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #use delay(crystal=4MHz) 
+0003:  MOVLW  20
+0004:  MOVWF  05
+0005:  MOVLW  0D
+0006:  MOVWF  04
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  MOVLP  00
+0019:  GOTO   05E (RETURN)
+.................... #use standard_io(b)  
+.................... #use standard_io(a)  
+.................... void main() 
+001A:  MOVLB  03
+001B:  CLRF   0C
+001C:  CLRF   0D
+001D:  MOVLB  02
+001E:  CLRF   12
+001F:  CLRF   11
+0020:  CLRF   14
+0021:  CLRF   13
+.................... { 
+....................    set_tris_b(0b00000000); 
+0022:  MOVLW  00
+0023:  TRIS   6
+....................    set_tris_a(0b11111111); 
+0024:  MOVLW  FF
+0025:  TRIS   5
+....................     
+....................    int numeros[10]={0x3F,0x6,0x5B,0x4F,0x66,0x6D,0x7D,0x7,0x7F,0x6F}; 
+0026:  MOVLW  3F
+0027:  MOVLB  00
+0028:  MOVWF  21
+0029:  MOVLW  06
+002A:  MOVWF  22
+002B:  MOVLW  5B
+002C:  MOVWF  23
+002D:  MOVLW  4F
+002E:  MOVWF  24
+002F:  MOVLW  66
+0030:  MOVWF  25
+0031:  MOVLW  6D
+0032:  MOVWF  26
+0033:  MOVLW  7D
+0034:  MOVWF  27
+0035:  MOVLW  07
+0036:  MOVWF  28
+0037:  MOVLW  7F
+0038:  MOVWF  29
+0039:  MOVLW  6F
+003A:  MOVWF  2A
+....................    int contar = 0; 
+003B:  CLRF   2B
+....................    output_b(0x3F); 
+003C:  MOVLB  01
+003D:  CLRF   0D
+003E:  MOVLW  3F
+003F:  MOVLB  02
+0040:  MOVWF  0D
+....................    while(TRUE) 
+....................    { 
+....................       if(input_state(PIN_A0)) 
+0041:  MOVLB  00
+0042:  BTFSS  0C.0
+0043:  GOTO   063
+....................       {    
+....................          for (contar=0;contar<10;contar++) 
+0044:  CLRF   2B
+0045:  MOVF   2B,W
+0046:  SUBLW  09
+0047:  BTFSS  03.0
+0048:  GOTO   062
+....................          { 
+....................             output_b(numeros[contar]); 
+0049:  MOVLW  01
+004A:  ADDWF  2B,W
+004B:  MOVWF  04
+004C:  MOVLW  20
+004D:  MOVWF  05
+004E:  BTFSC  03.0
+004F:  INCF   05,F
+0050:  MOVF   00,W
+0051:  MOVWF  2C
+0052:  MOVLB  01
+0053:  CLRF   0D
+0054:  MOVLB  00
+0055:  MOVF   2C,W
+0056:  MOVLB  02
+0057:  MOVWF  0D
+....................             delay_ms(300);             
+0058:  MOVLW  02
+0059:  MOVLB  00
+005A:  MOVWF  2C
+005B:  MOVLW  96
+005C:  MOVWF  2D
+005D:  GOTO   003
+005E:  DECFSZ 2C,F
+005F:  GOTO   05B
+0060:  INCF   2B,F
+0061:  GOTO   045
+....................          } 
+....................       } 
+0062:  GOTO   069
+....................       else { 
+....................          output_b(0x3F); 
+0063:  MOVLB  01
+0064:  CLRF   0D
+0065:  MOVLW  3F
+0066:  MOVLB  02
+0067:  MOVWF  0D
+0068:  MOVLB  00
+....................       } 
+0069:  GOTO   042
+....................    } 
+.................... } 
+....................  
+006A:  SLEEP
+....................  
+
+Configuration Fuses:
+   Word  1: 39C1   XT NOWDT PUT MCLR NOPROTECT NOCPD NOBROWNOUT NOCLKOUT IESO FCMEN
+   Word  2: 1EFF   NOWRT PLL_SW STVREN BORV19 NODEBUG NOLVP

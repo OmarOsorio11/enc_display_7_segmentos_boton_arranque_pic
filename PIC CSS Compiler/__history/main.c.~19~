@@ -1,0 +1,17 @@
+#include <main.h>
+#use fast_io(D) 
+#use fast_io(B) 
+
+void main()
+{  
+   byte unidad=0, decena=0;
+   set_tris_D(0b00000000);
+   set_tris_B(0b00000000);
+   output_D(0);
+   
+   
+   while(TRUE)
+   {
+   }
+}
+
